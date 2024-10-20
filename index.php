@@ -179,7 +179,7 @@ include "inc/koneksi.php";
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="?page=table-fcr" class="nav-link">
+										<a href="?page=hasil-fcr" class="nav-link">
 											<i class="nav-icon far fa-circle text-info"></i>
 											<p>Tabel Analisis FCR</p>
 										</a>
@@ -191,7 +191,7 @@ include "inc/koneksi.php";
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="?page=cari-hasil" class="nav-link">
+										<a href="?page=cetak-hasil" class="nav-link">
 											<i class="nav-icon far fa-circle text-orange"></i>
 											<p>Cetak Hasil Panen</p>
 										</a>
@@ -346,25 +346,22 @@ include "inc/koneksi.php";
 								break;
 
 								//data panen
-							case 'table-fcr':
-								include "admin/fcr/table_fcr.php";
-								break;
+							// case 'table-fcr':
+							// 	include "admin/fcr/table_fcr.php";
+							// 	break;
 							case 'hasil-fcr':
 								include "admin/fcr/table.php";
 								break;
 
 								//laporan
-							case 'cari-laporan-harian':
-								include "admin/Laporan/cari_laporan.php";
-								break;
 							case 'laporan-harian':
 								include "admin/Laporan/laporan.php";
 								break;
+							case 'cari-laporan-harian':
+								include "admin/Laporan/cari_laporan.php";
+								break;
 								
 								//Cetak hasil
-							case 'cari-hasil':
-								include "admin/cetak_hasil/cari_data.php";
-								break;
 							case 'cetak-hasil':
 								include "admin/cetak_hasil/cetak_hasil.php";
 								break;
@@ -439,7 +436,6 @@ include "inc/koneksi.php";
 			data: {
 				labels: <?php echo json_encode($labels); ?>,
 				datasets: [{
-					label: <?php echo json_encode($kandang) ?>,
 					data: <?php echo json_encode($data); ?>,
 					backgroundColor: 'rgba(255, 99, 132, 0.2)',
 					borderColor: 'rgba(255, 99, 132, 1)',
@@ -448,7 +444,7 @@ include "inc/koneksi.php";
 			},
 			options: {
 				legend: {
-					display: true,
+					display: false,
 					position: 'right'
 				},
 				scales: {

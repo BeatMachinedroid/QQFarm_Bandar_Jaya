@@ -35,6 +35,12 @@
                     <input type="text" class="form-control" name="jumlah" placeholder="Jumlah" required value="<?= $data_cek['jumlah']; ?>">
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Usia / Ekor</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="usia" placeholder="Usia Ayam" required value="<?= $data_cek['umur']; ?>">
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal</label>
@@ -72,11 +78,12 @@ if (isset($_POST['Simpan'])) {
     $tanggal = $_POST['tanggal'];
     $berat     = $_POST['berat'];
     $harga     = $_POST['harga'];
+    $usia     = $_POST['usia'];
 
     if ($jumlah >= 1000 && $berat >= 36 || $berat <= 40) {
         $addstmt = $koneksi->prepare("UPDATE tb_ayam_masuk set
-            rata_berat = ?, jumlah = ?, tgl = ?, harga_ekor = ? where id = ?");
-        $addstmt->bind_Param("iisii", $berat, $jumlah, $tanggal, $harga, $kode);
+            rata_berat = ?,umur = ?, jumlah = ?, tgl = ?, harga_ekor = ? where id = ?");
+        $addstmt->bind_Param("iiisii", $berat,$usia, $jumlah, $tanggal, $harga, $kode);
         if ($addstmt->execute()) {
             echo "<script>
                 Swal.fire({title: 'Update Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'

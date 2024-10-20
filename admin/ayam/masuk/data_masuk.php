@@ -18,6 +18,7 @@
 						<th>No</th>						
 						<th>Tanggal</th>
 						<th>Kode kandang</th>
+						<th>Umur</th>
 						<th>Jumlah</th>
 						<th>Berat DOC</th>			
 						<th>Harga per-ekor</th>			
@@ -29,7 +30,7 @@
 
 					<?php
               $no = 1;
-			  $sql = $koneksi->query("SELECT tb_ayam_masuk.id , harga_ekor, kode, jumlah, tgl, rata_berat 
+			  $sql = $koneksi->query("SELECT tb_ayam_masuk.id ,umur, harga_ekor, kode, jumlah, tgl, rata_berat 
 			  from tb_kandang Join tb_ayam_masuk ON tb_kandang.id = tb_ayam_masuk.fk_kandang");
 
               while ($data= $sql->fetch_assoc()) {
@@ -45,6 +46,9 @@
 						
 						<td>
 							<?php echo $data['kode']; ?>
+						</td>
+						<td>
+							<?php echo $data['umur']; ?>
 						</td>
 						<td>
 							<?php echo $data['jumlah']; ?> Ekor

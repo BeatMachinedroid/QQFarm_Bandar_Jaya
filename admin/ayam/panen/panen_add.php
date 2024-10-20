@@ -24,7 +24,13 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Jumlah Ayam</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="jumlah" placeholder="Jumlah" required>
+					<input type="number" class="form-control" name="jumlah" placeholder="Jumlah" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Jumlah Ayam Masuk</label>
+				<div class="col-sm-6">
+					<input type="number" class="form-control" name="jumlah_masuk" placeholder="Jumlah Ayam Masuk" required>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -36,10 +42,43 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Harga Jual Per-Ekor</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="harga" placeholder="Harga" required>
+					<input type="number" class="form-control" name="harga" placeholder="Harga" required>
 				</div>
 			</div>
-
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Harga Beli Per-Ekor</label>
+				<div class="col-sm-6">
+					<input type="number" class="form-control" name="beli" placeholder="Harga Beli" required>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Umur</label>
+				<div class="col-sm-6">
+					<input type="number" class="form-control" name="umur" placeholder="Umur" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Total pakan</label>
+				<div class="col-sm-6">
+					<input type="number" class="form-control" name="pakan" placeholder="Total Pakan Terpakai" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">jenis Pakan</label>
+				<div class="col-sm-6">
+					<select name="jenis" class="form-control">
+						<?php
+						$kndg = $koneksi->query("SELECT jenis, id 
+						from tb_pakan_masuk ");
+						while ($kdg = $kndg->fetch_assoc()) {
+						?>
+							<option value="<?= $kdg['id']; ?>"><?= $kdg['jenis']; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+			</div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Tanggal</label>
 				<div class="col-sm-6">
@@ -69,11 +108,16 @@ if (isset($_POST['Simpan'])) {
 	$tgl_masuk = $_POST['tgl_masuk'];
 	$rataber = $_POST['rata'];
 	$harga = $_POST['harga'];
+	$umur = $_POST['umur'];
+	$pakan = $_POST['pakan'];
+	$jenis = $_POST['jenis'];
+	$harga_beli = $_POST['beli'];
+	$jumlah_masuk = $_POST['jumlah_masuk'];
 
 	$addstmt = $koneksi->prepare("INSERT INTO tb_panen 
-            (fk_kandang, jumlah_ayam, harga_jual_ekor,tgl, tgl_ayam_masuk, berat_ekor) 
-            Values (?,?,?,?,?,?)");
-	$addstmt->bind_Param("iiisss", $kode, $jumlah, $harga, $tanggal, $tgl_masuk, $rataber);
+            (fk_kandang, jumlah_ayam, harga_jual_ekor,tgl, tgl_ayam_masuk, berat_ekor, fk_pakan, total_pakan, umur, harga_beli, jumlah_masuk) 
+            Values (?,?,?,?,?,?,?,?,?,?,?)");
+	$addstmt->bind_Param("iiisssiiiii", $kode, $jumlah, $harga, $tanggal, $tgl_masuk, $rataber, $jenis, $pakan, $umur, $harga_beli, $jumlah_masuk);
 
 
 	if ($addstmt->execute()) {

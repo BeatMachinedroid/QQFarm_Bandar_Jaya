@@ -23,7 +23,13 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Jumlah / Ekor</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="jumlah" placeholder="Jumlah" required>
+                    <input type="number" class="form-control" name="jumlah" placeholder="Jumlah" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Umur</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" name="usia" placeholder="Umur" required>
                 </div>
             </div>
 
@@ -37,7 +43,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Harga per-ekor</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="harga" placeholder="Harga Per-Ekor" required>
+                    <input type="number" class="form-control" name="harga" placeholder="Harga Per-Ekor" required>
                 </div>
             </div>
 
@@ -63,12 +69,13 @@ if (isset($_POST['Simpan'])) {
     $tanggal = $_POST['tanggal'];
     $berat     = $_POST['berat'];
     $harga     = $_POST['harga'];
+    $usia     = $_POST['usia'];
 
     if ($jumlah >= 1000 && $berat >= 36 || $berat <= 40) {
         $addstmt = $koneksi->prepare("INSERT INTO tb_ayam_masuk 
-            (fk_kandang, rata_berat, jumlah, tgl, harga_ekor) 
-            Values (?,?,?,?,?)");
-        $addstmt->bind_Param("iiisi", $kode, $berat, $jumlah, $tanggal, $harga);
+            (fk_kandang, umur, rata_berat, jumlah, tgl, harga_ekor) 
+            Values (?,?,?,?,?,?)");
+        $addstmt->bind_Param("iiiisi", $kode,$usia, $berat, $jumlah, $tanggal, $harga);
         if ($addstmt->execute()) {
             echo "<script>
                     Swal.fire({title: 'Tambah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'

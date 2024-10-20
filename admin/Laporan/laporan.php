@@ -21,10 +21,9 @@
                     $tgl_keluar = $_POST['akhir'];
                     $kode = $_POST['kode'];
 
-                    $sql_cek = "SELECT tb_kandang.nama_kandang, tb_ayam_masuk.jumlah 
-                    FROM tb_kandang JOIN tb_ayam_masuk 
-                    ON tb_kandang.id = tb_ayam_masuk.fk_kandang where tb_ayam_masuk.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
-                    and tb_kandang.id = $kode";
+                    $sql_cek = "SELECT *
+                    FROM tb_kandang 
+                    where tb_kandang.id = $kode";
                     $query_cek = mysqli_query($koneksi, $sql_cek);
                     $data_cek = mysqli_fetch_array($query_cek, MYSQLI_BOTH);
 
@@ -42,13 +41,13 @@
                     </tr>
                     <tr>
                     <td>
-                            Jumlah Ayam Masuk
+                            Kapasitas
                         </td>
                         <td>
                             :
                         </td>
                         <td>
-                            <?= $data_cek['jumlah']; ?>
+                            <?= $data_cek['kapasitas']; ?>
                         </td>
                     </tr>
                 </tbody>

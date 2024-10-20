@@ -20,65 +20,66 @@
                         <th>Tanggal Ayam Masuk</th>
                         <th>Tanggal Panen</th>
                         <th>Total Pakan / Kg</th>
+                        <th>Jenis Pakan</th>
                         <th>Total Ayam / kg</th>
                         <th>FCR</th>
+                        <th>Indikasi</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
 
                     <?php
                     $no = 1;
-                    $tgl_masuk = $_POST['awal'];
-                    $tgl_keluar = $_POST['akhir'];
-                    $kode = $_POST['kode'];
-                    $sql = $koneksi->query("SELECT nama_kandang, 
-                    tb_ayam_masuk.tgl as tgl_masuk, tb_pakan_keluar.tgl, tb_panen.tgl as tgl_panen,
-                    SUM(tb_pakan_keluar.jumlah_kg) AS total_pakan, 
-                    SUM(tb_pakan_keluar.jumlah_kg) * tb_pakan_masuk.harga AS total_pengeluaran_pakan,
-                    tb_panen.jumlah_ayam * tb_panen.berat_ekor AS berat_ayam 
-                    FROM tb_kandang 
-                    JOIN tb_pakan_masuk ON tb_kandang.id = tb_pakan_masuk.fk_kandang 
-                    JOIN tb_pakan_keluar ON tb_kandang.id = tb_pakan_keluar.fk_kandang 
-                    JOIN tb_ayam_masuk ON tb_kandang.id = tb_ayam_masuk.fk_kandang 
-                    JOIN tb_panen ON tb_kandang.id = tb_panen.fk_kandang
-                    WHERE 
-                     tb_pakan_keluar.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
-                    
-                    AND tb_kandang.id = '$kode'
-                    GROUP BY tb_kandang.nama_kandang;
+
+                    $sql = $koneksi->query("SELECT * from tb_kandang join tb_panen
+                    on tb_kandang.id = tb_panen.fk_kandang
+                    join tb_pakan_masuk on tb_panen.fk_pakan = tb_pakan_masuk.id
               ");
 
                     while ($data = $sql->fetch_assoc()) {
-                        $fcr = $data['total_pakan'] / $data['berat_ayam'];
+                        $total_berat = $data['jumlah_ayam'] * $data['berat_ekor'];
+                        $fcr = $data['total_pakan'] / $total_berat;
                     ?>
+                        <tr>
 
                             <td>
-                                <?php echo $no++; ?>
+                                <?= $no++; ?>
                             </td>
                             <td>
-                                <?php echo $data['nama_kandang']; ?>
+                                <?= $data['nama_kandang']; ?>
                             </td>
                             <td>
-                                <?php echo $data['tgl_masuk']; ?>
+                                <?= $data['tgl_ayam_masuk']; ?>
                             </td>
                             <td>
-                                <?php echo $data['tgl_panen']; ?>
+                                <?= $data['tgl']; ?>
                             </td>
                             <td>
-                                <?php echo $data['total_pakan']; ?> Kg
+                                <?= $data['total_pakan']; ?> Kg
                             </td>
                             <td>
-                                <?= $data['berat_ayam']; ?> Kg
+                                <?=$data['jenis']; ?> Kg
+                            </td>
+                            <td>
+                                <?= $total_berat ?> Kg
                             </td>
                             <td>
                                 <?= substr($fcr, 0, 7) ?>
                             </td>
-                            
-                            <?php
+                            <td>
+                                <?php 
+                                    if($fcr >= 1.5 || $fcr <= 1.7 ){
+                                        echo "<b>Efektif</b>";
+                                    }else{
+                                        echo "<b>Tidak Efektif</b>";
+                                    }
+                                ?>
+                            </td>
+
+                        </tr>
+                    <?php
                     }
                     ?>
-                    </tr>
 
                 </tbody>
                 </tfoot>

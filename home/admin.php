@@ -35,7 +35,7 @@
 			<div class="icon">
 				<i class="fas fa-calendar"></i>
 			</div>
-			<a href="index.php?page=data-per" class="small-box-footer">Selengkapnya
+			<a href="index.php?page=data-kandang" class="small-box-footer">Selengkapnya
 				<i class="fas fa-arrow-circle-right"></i>
 			</a>
 		</div>
@@ -54,7 +54,7 @@
 			<div class="icon">
 				<i class="fas fa-hourglass-half"></i>
 			</div>
-			<a href="index.php?page=data-test" class="small-box-footer">Selengkapnya
+			<a href="index.php?page=data-panen" class="small-box-footer">Selengkapnya
 				<i class="fas fa-arrow-circle-right"></i>
 			</a>
 		</div>

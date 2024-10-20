@@ -14,53 +14,15 @@
                     <i class="fa fa-download"></i> Pdf</a>
             </div>
             <br>
-            <table cellspacing="2" border="0" cellpadding="5">
-                <tbody>
-                    <?php
-                    $tgl_masuk = $_POST['awal'];
-                    $tgl_keluar = $_POST['akhir'];
-                    $kode = $_POST['kode'];
-
-                    $sql_cek = "SELECT tb_kandang.nama_kandang, tb_ayam_masuk.jumlah 
-                    FROM tb_kandang JOIN tb_ayam_masuk 
-                    ON tb_kandang.id = tb_ayam_masuk.fk_kandang where tb_ayam_masuk.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
-                    and tb_kandang.id = $kode";
-                    $query_cek = mysqli_query($koneksi, $sql_cek);
-                    $data_cek = mysqli_fetch_array($query_cek, MYSQLI_BOTH);
-
-                    ?>
-                    <tr>
-                        <td>
-                            Nama Kandang
-                        </td>
-                        <td>
-                            :
-                        </td>
-                        <td>
-                            <?= $data_cek['nama_kandang']; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Jumlah Ayam Masuk
-                        </td>
-                        <td>
-                            :
-                        </td>
-                        <td>
-                            <?= $data_cek['jumlah']; ?> Ekor
-                        </td>
-                    </tr>
-                </tbody>
-                </tfoot>
-            </table>
-            <br>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>No</th>
+                        <th>Nama Kandang</th>
                         <th>Tanggal Check-In</th>
                         <th>Tanggal Panen</th>
                         <th>Pakan Terpakai</th>
+                        <th>Jenis</th>
                         <th>Total biaya pakan</th>
                         <th>Berat Ayam</th>
                         <th>Total Beli Ayam</th>
@@ -68,67 +30,62 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
 
-                        <?php
-                        $no = 1;
-                        $tgl_masuk = $_POST['awal'];
-                        $tgl_keluar = $_POST['akhir'];
-                        $kode = $_POST['kode'];
-                        $sql = $koneksi->query("SELECT nama_kandang, 
-                    tb_ayam_masuk.tgl as tgl_masuk, tb_ayam_masuk.jumlah as ayam_awal, tb_ayam_masuk.harga_ekor as harga_beli,
-                    tb_pakan_keluar.tgl, tb_panen.tgl as tgl_panen,
-                    SUM(tb_pakan_keluar.jumlah_kg) AS total_pakan, 
-                    SUM(tb_pakan_keluar.jumlah_kg) * tb_pakan_masuk.harga AS total_pengeluaran_pakan,
-                    tb_panen.jumlah_ayam * tb_panen.berat_ekor AS berat_ayam ,
-                    tb_panen.harga_jual_ekor as harga_jual,
-                    tb_pakan_masuk.harga as harga_pakan
-                    FROM tb_kandang 
-                    JOIN tb_pakan_masuk ON tb_kandang.id = tb_pakan_masuk.fk_kandang 
-                    JOIN tb_pakan_keluar ON tb_kandang.id = tb_pakan_keluar.fk_kandang 
-                    JOIN tb_ayam_masuk ON tb_kandang.id = tb_ayam_masuk.fk_kandang 
-                    JOIN tb_panen ON tb_kandang.id = tb_panen.fk_kandang
-                    WHERE 
-                     tb_pakan_keluar.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
-                    
-                    AND tb_kandang.id = '$kode'
-                    GROUP BY tb_kandang.nama_kandang;
-              ");
+                    <?php
+                    $no = 1;
 
-                        while ($data = $sql->fetch_assoc()) {
-                            $fcr = $data['total_pakan'] / $data['berat_ayam'];
-                            $total_biaya_pakan = $data['total_pakan'] * $data['harga_pakan'];
-                            $total_beli_ayam = $data['ayam_awal'] * $data['harga_beli'];
-                            $total_panen = $data['berat_ayam'] * $data['harga_jual'];
-                            $harga_pokok = $total_panen - $total_beli_ayam - $total_biaya_pakan;
-                        ?>
+                    $sql = $koneksi->query("SELECT * from tb_kandang 
+                        join tb_panen on tb_kandang.id = tb_panen.fk_kandang
+                        join tb_pakan_masuk on tb_panen.fk_pakan = tb_pakan_masuk.id
+                        
+                    ");
 
+                    while ($data = $sql->fetch_assoc()) {
+                        $total_biaya_pakan = $data['total_pakan'] * $data['harga'];
+                        $berat_ayam = $data['jumlah_ayam'] * $data['berat_ekor'];
+                        $total_beli_ayam = $data['jumlah_masuk'] * $data['harga_beli'];
+                        $total_panen = $berat_ayam * $data['harga_jual_ekor'];
+
+                        $harga_pokok = $total_panen - $total_beli_ayam - $total_biaya_pakan;
+                        $formatted_pakan = number_format($total_biaya_pakan, 0, ',', '.');
+                        $formatted_berat = number_format($berat_ayam, 0, ',', '.');
+                        $formatted_total_ayam = number_format($total_beli_ayam, 0, ',', '.');
+                        $formatted_harga_pokok = number_format($total_panen, 0, ',', '.');
+                    ?>
+                        <tr>
+                            <td><?= $no++; ?></td>
                             <td>
-                                <?= $data['tgl_masuk'] ?>
+                                <?= $data['nama_kandang'] ?>
                             </td>
                             <td>
-                                <?= $data['tgl_panen'] ?>
+                                <?= $data['tgl_ayam_masuk'] ?>
                             </td>
                             <td>
-                                <?= $data['total_pakan']; ?> Kg
+                                <?= $data['tgl']; ?>
                             </td>
                             <td>
-                                Rp. <?= $total_biaya_pakan ?>
+                                <?= $data['total_pakan'] ?>Kg
                             </td>
                             <td>
-                                <?= $data['berat_ayam']; ?> Kg
+                                <?= $data['jenis'] ?>
                             </td>
                             <td>
-                                Rp. <?= $total_beli_ayam; ?>
+                                Rp.<?= $formatted_pakan ?>
                             </td>
                             <td>
-                                Rp. <?= $harga_pokok ?>
+                                <?= $formatted_berat; ?>kg
+                            </td>
+                            <td>
+                                Rp.<?= $formatted_total_ayam ?>
+                            </td>
+                            <td>
+                                Rp.<?= $formatted_harga_pokok ?>
                             </td>
 
-                        <?php
-                        }
-                        ?>
-                    </tr>
+                        </tr>
+                    <?php
+                    }
+                    ?>
 
                 </tbody>
                 </tfoot>

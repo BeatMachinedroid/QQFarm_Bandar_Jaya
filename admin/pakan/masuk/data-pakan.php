@@ -22,6 +22,7 @@
                         <th>jumlah masuk</th>
                         <th>jenis</th>
                         <th>Harga Beli</th>
+                        <th>Grand Total</th>
                         <th>aksi</th>
                     </tr>
                 </thead>
@@ -34,6 +35,8 @@
                      FROM tb_kandang JOIN tb_pakan_masuk
                     ON tb_kandang.id = tb_pakan_masuk.fk_kandang");
                     while ($data = $sql->fetch_assoc()) {
+                        $grand = $data['harga'] * $data['jumlah_kg'];
+                        $total = number_format($grand, 0, ',', '.');
                     ?>
 
                         <tr>
@@ -51,6 +54,7 @@
                             </td>
                             <td><?= $data['jenis']; ?></td>
                             <td>Rp. <?= $data['harga']; ?></td>
+                            <td>Rp. <?= $total ?></td>
                             
                             <td>
                                 <a href="?page=update-pakan-masuk&kode=<?php echo base64_encode($data['id']); ?>" title="Edit data"
