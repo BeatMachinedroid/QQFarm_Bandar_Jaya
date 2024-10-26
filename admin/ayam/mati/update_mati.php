@@ -2,7 +2,7 @@
     if(isset($_GET['kode'])){
         $kode = base64_decode(($_GET['kode']));
         $sql_cek = "SELECT tb_kandang.kode, tb_ayam_mati.fk_kandang,
-        tb_ayam_mati.jumlah_mati, tb_ayam_mati.tgl, nama_kandang FROM 
+        tb_ayam_mati.jumlah_mati, tb_ayam_mati.tgl, nama_kandang, tb_ayam_mati.umur FROM 
         tb_ayam_mati JOIN tb_kandang ON tb_kandang.id = tb_ayam_mati.fk_kandang 
         WHERE tb_ayam_mati.id = '$kode'";
         $query_cek = mysqli_query($koneksi, $sql_cek);
@@ -33,6 +33,12 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Umur</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="umur" placeholder="Umur" value="<?= $data_cek['umur']; ?>" required>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-6">
                     <input type="date" class="form-control" name="tanggal" required value="<?= $data_cek['tgl']; ?>">
@@ -52,10 +58,11 @@ if (isset($_POST['Simpan'])) {
     // $kode   = $_POST['kode'];
     $jumlah  = $_POST['jumlah'];
     $tanggal    = $_POST['tanggal'];
+    $umur = $_POST['umur'];
 
-        $addstmt = $koneksi->prepare("UPDATE tb_ayam_mati SET jumlah_mati = ?, tgl = ?
+        $addstmt = $koneksi->prepare("UPDATE tb_ayam_mati SET jumlah_mati = ?, tgl = ?, umur = ?
         where id = ?");
-        $addstmt->bind_Param("iis", $kode, $jumlah, $tanggal);
+        $addstmt->bind_Param("iisi", $kode, $jumlah, $tanggal, $umur);
         if ($addstmt->execute()) {
             echo "<script>
                 Swal.fire({title: 'update Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'

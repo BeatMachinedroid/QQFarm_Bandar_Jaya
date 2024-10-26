@@ -20,7 +20,7 @@
                         <th>Tanggal Ayam Masuk</th>
                         <th>Tanggal Panen</th>
                         <th>Total Pakan / Kg</th>
-                        <th>Jenis Pakan</th>
+                        <th>Nama Pakan</th>
                         <th>Total Ayam / kg</th>
                         <th>FCR</th>
                         <th>Indikasi</th>

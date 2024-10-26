@@ -19,6 +19,7 @@
                         <th>No</th>
                         <th>tgl masuk</th> 
                         <th>nama kandang</th>
+                        <th>Umur</th>
                         <th>jumlah mati</th>
                         <th>aksi</th>
                     </tr>
@@ -27,7 +28,7 @@
 
                     <?php
                     $no = 1;
-                    $sql = $koneksi->query("SELECT tb_ayam_mati.id, jumlah_mati, 
+                    $sql = $koneksi->query("SELECT tb_ayam_mati.id, jumlah_mati, tb_ayam_mati.umur,
                     nama_kandang, tgl
                     FROM tb_ayam_mati JOIN tb_kandang  
                     ON tb_kandang.id = tb_ayam_mati.fk_kandang 
@@ -45,6 +46,9 @@
                             
                             <td>
                                 <?php echo $data['nama_kandang']; ?>
+                            </td>
+                            <td>
+                                <?php echo $data['umur']; ?>
                             </td>
                             
                             <td>

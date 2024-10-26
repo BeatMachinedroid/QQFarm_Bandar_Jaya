@@ -42,16 +42,6 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">status</label>
-				<div class="col-sm-6">
-                <select name="status" id="saham_nama" class="form-control">
-						<option><?=$data_cek['status']; ?></option>
-						<option value="kosong">kosong</option>
-						<option value="isi">isi</option>
-					</select>
-				</div>
-			</div>
 
 		<div class="card-footer">
 			<input type="submit" name="Simpan" value="Simpan" class="btn btn-info">
@@ -67,10 +57,9 @@
     	$nama_kandang 	= $_POST['nama_kandang'];
     	$kapasitas 		= $_POST['kapasitas'];
     	$lokasi 	= $_POST['lokasi'];
-    	$status 	= $_POST['status'];
 		
-        $stmtedit = $koneksi->prepare("UPDATE tb_kandang set kode = ?, nama_kandang = ?, kapasitas = ?, lokasi = ?, status = ? where id = ?");
-        $stmtedit->bind_Param("sssssi", $kknd, $nama_kandang, $kapasitas, $lokasi, $status, $kode);
+        $stmtedit = $koneksi->prepare("UPDATE tb_kandang set kode = ?, nama_kandang = ?, kapasitas = ?, lokasi = ? where id = ?");
+        $stmtedit->bind_Param("ssssi", $kknd, $nama_kandang, $kapasitas, $lokasi, $kode);
 
     if ($stmtedit->execute()) {
       echo "<script>

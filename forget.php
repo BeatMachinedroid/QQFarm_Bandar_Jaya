@@ -34,7 +34,7 @@
 		<div class="card">
 			<div class="card-body login-card-body">
 				<center>
-					<a href="./login.php"> <img src="dist/yunita/gambar.png" width=250px /> </a>
+					<a href="./login.php"> <img src="dist/yasinta/logo.jpg" width=250px /> </a>
 					<br>
 					
 					<br>

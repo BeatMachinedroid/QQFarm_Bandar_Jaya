@@ -22,10 +22,10 @@
                         <th>Tanggal Check-In</th>
                         <th>Tanggal Panen</th>
                         <th>Pakan Terpakai</th>
-                        <th>Jenis</th>
+                        <th>Nama Pakan</th>
                         <th>Total biaya pakan</th>
                         <th>Berat Ayam</th>
-                        <th>Total Beli Ayam</th>
+                        <th>Total Harga Ayam</th>
                         <th>Harga Pokok Panen</th>
                     </tr>
                 </thead>
@@ -45,12 +45,13 @@
                         $berat_ayam = $data['jumlah_ayam'] * $data['berat_ekor'];
                         $total_beli_ayam = $data['jumlah_masuk'] * $data['harga_beli'];
                         $total_panen = $berat_ayam * $data['harga_jual_ekor'];
+                        $total = $total_panen - $total_beli_ayam - $total_biaya_pakan;
 
                         $harga_pokok = $total_panen - $total_beli_ayam - $total_biaya_pakan;
                         $formatted_pakan = number_format($total_biaya_pakan, 0, ',', '.');
                         $formatted_berat = number_format($berat_ayam, 0, ',', '.');
                         $formatted_total_ayam = number_format($total_beli_ayam, 0, ',', '.');
-                        $formatted_harga_pokok = number_format($total_panen, 0, ',', '.');
+                        $formatted_harga_pokok = number_format($total, 0, ',', '.');
                     ?>
                         <tr>
                             <td><?= $no++; ?></td>

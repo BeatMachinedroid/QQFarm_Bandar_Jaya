@@ -418,52 +418,6 @@ include "inc/koneksi.php";
 	<script src="plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
 	<script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<?php
-	$sql = "SELECT nama_kandang, MONTH(tgl) as bln, MONTHNAME(tgl) AS bulan, SUM(jumlah_ayam) AS total_panen FROM tb_panen join tb_kandang on tb_kandang.id = tb_panen.fk_kandang GROUP BY bln";
-	$result = mysqli_query($koneksi, $sql);
-	$labels = [];
-	$data = [];
-	while ($row = mysqli_fetch_assoc($result)) {
-		$labels[] = $row['bulan'];
-		$data[] = $row['total_panen'];
-		$kandang[] = $row['nama_kandang'];
-	}
-	?>
-	<script>
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: <?php echo json_encode($labels); ?>,
-				datasets: [{
-					data: <?php echo json_encode($data); ?>,
-					backgroundColor: 'rgba(255, 99, 132, 0.2)',
-					borderColor: 'rgba(255, 99, 132, 1)',
-					borderWidth: 1
-				}]
-			},
-			options: {
-				legend: {
-					display: false,
-					position: 'right'
-				},
-				scales: {
-					xAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: 'Bulan'
-						}
-					}],
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-				
-			}
-		});
-	</script>
 	<script>
 		$(function() {
 			$("#example1").DataTable();

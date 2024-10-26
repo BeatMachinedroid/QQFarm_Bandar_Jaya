@@ -24,7 +24,7 @@
                         <th>rata berat panen</th>
                         <th>harga jual</th>
                         <th>total pakan / kg</th>
-                        <th>jenis pakan</th>
+                        <th>nama pakan</th>
                         <th>aksi</th>
                     </tr>
                 </thead>

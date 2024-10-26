@@ -27,6 +27,12 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Umur</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="umur" placeholder="umur" required>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-6">
                     <input type="date" class="form-control" name="tanggal" required>
@@ -46,11 +52,13 @@ if (isset($_POST['Simpan'])) {
     $kode   = $_POST['kode'];
     $jumlah  = $_POST['jumlah'];
     $tanggal    = $_POST['tanggal'];
+    $umur    = $_POST['umur'];
+
 
         $addstmt = $koneksi->prepare("INSERT INTO tb_ayam_mati 
-            (fk_kandang, jumlah_mati, tgl)
-            Values (?,?,?)");
-        $addstmt->bind_Param("iis", $kode, $jumlah, $tanggal);
+            (fk_kandang, jumlah_mati, tgl, umur)
+            Values (?,?,?,?)");
+        $addstmt->bind_Param("iisi", $kode, $jumlah, $tanggal, $umur);
         if ($addstmt->execute()) {
             echo "<script>
                 Swal.fire({title: 'Tambah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'

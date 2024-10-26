@@ -34,7 +34,7 @@
 		<div class="card">
 			<div class="card-body login-card-body">
 				<center>
-					<img src="dist/yasinta/yasinta.png" width=300px />
+					<img src="dist/yasinta/logo.jpg" width=300px />
 					<br>
 					
 					<br>
