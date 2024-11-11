@@ -13,7 +13,7 @@
 <div class="card card-warning">
     <div class="card-header">
         <h3 class="card-title">
-            <i class="fa fa-edit"></i> Tambah Data
+            <i class="fa fa-edit"></i> Update Data
         </h3>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
@@ -60,9 +60,8 @@ if (isset($_POST['Simpan'])) {
     $tanggal    = $_POST['tanggal'];
     $umur = $_POST['umur'];
 
-        $addstmt = $koneksi->prepare("UPDATE tb_ayam_mati SET jumlah_mati = ?, tgl = ?, umur = ?
-        where id = ?");
-        $addstmt->bind_Param("iisi", $kode, $jumlah, $tanggal, $umur);
+        $addstmt = $koneksi->prepare("UPDATE tb_ayam_mati SET jumlah_mati = ?, tgl = ?, umur = ? where id = ?");
+        $addstmt->bind_Param("isii", $jumlah, $tanggal, $umur, $kode);
         if ($addstmt->execute()) {
             echo "<script>
                 Swal.fire({title: 'update Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'

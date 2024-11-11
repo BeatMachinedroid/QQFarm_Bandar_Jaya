@@ -21,7 +21,7 @@ include "inc/koneksi.php";
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>SISTEM INFORMASI AKUNTANSI</title>
-	<link rel="icon" href="dist/yasinta/yasinta.png">
+	<link rel="icon" href="dist/yasinta/logo.jpg">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -76,7 +76,7 @@ include "inc/koneksi.php";
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="index.php" class="brand-link bg-red">
-				<img src="dist/yasinta/yasinta.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+				<img src="dist/yasinta/logo.jpg" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
 				<font color="black">
 					<span class="brand-text font-weight-bold">Menu</span>
 			</a>
@@ -346,9 +346,9 @@ include "inc/koneksi.php";
 								break;
 
 								//data panen
-							// case 'table-fcr':
-							// 	include "admin/fcr/table_fcr.php";
-							// 	break;
+								// case 'table-fcr':
+								// 	include "admin/fcr/table_fcr.php";
+								// 	break;
 							case 'hasil-fcr':
 								include "admin/fcr/table.php";
 								break;
@@ -360,7 +360,7 @@ include "inc/koneksi.php";
 							case 'cari-laporan-harian':
 								include "admin/Laporan/cari_laporan.php";
 								break;
-								
+
 								//Cetak hasil
 							case 'cetak-hasil':
 								include "admin/cetak_hasil/cetak_hasil.php";
@@ -385,7 +385,7 @@ include "inc/koneksi.php";
 				<font color="black">
 			</div>
 			<div class="copyright text-center my-auto">
-				<strong> Copyright @2023 <a href="https://www.instagram.com">QQfarm</a></strong> All right reserved.
+				<strong> Copyright @2024 <a href="https://www.instagram.com">QQfarm</a></strong> All right reserved.
 		</footer>
 
 
@@ -431,19 +431,19 @@ include "inc/koneksi.php";
 			});
 		});
 	</script>
-<script>
-  function beforePrint() {
-    document.getElementById("printButton").style.display = "none";
-    document.getElementById("back").style.display = "none";
-  }
+	<script>
+		function beforePrint() {
+			document.getElementById("printButton").style.display = "none";
+			document.getElementById("back").style.display = "none";
+		}
 
-  window.addEventListener('beforeprint', beforePrint);
-</script>
-<script>
-function printDocument() {
-  window.print();
-}
-</script>
+		window.addEventListener('beforeprint', beforePrint);
+	</script>
+	<script>
+		function printDocument() {
+			window.print();
+		}
+	</script>
 </body>
 
 </html>

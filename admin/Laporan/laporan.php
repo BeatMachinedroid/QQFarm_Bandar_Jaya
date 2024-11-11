@@ -70,9 +70,11 @@
                     $no = 1;
 
                     $sql = $koneksi->query("SELECT tb_pakan_keluar.tgl,jenis, 
-                    tb_pakan_keluar.jumlah_kg FROM tb_kandang JOIN tb_pakan_keluar 
-                    ON tb_kandang.id = tb_pakan_keluar.fk_kandang 
+                    tb_pakan_keluar.jumlah_kg, jumlah_mati, tb_pakan_keluar.tgl, umur FROM tb_kandang 
+                    JOIN tb_pakan_keluar ON tb_kandang.id = tb_pakan_keluar.fk_kandang
+                    join tb_ayam_mati on tb_kandang.id = tb_ayam_mati.fk_kandang
                     where tb_pakan_keluar.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
+                    and tb_ayam_mati.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
                     and tb_kandang.id = $kode
               ");
 
@@ -93,36 +95,21 @@
                             <td>
                                 <?php echo $data['jenis']; ?>
                             </td>
-                            <td colspan="3">
+                            <td >
                                 <?php echo $data['jumlah_kg']; ?> Kg
+                            </td>
+                            <td >
+                                <?= $data['umur']; ?>
+                            </td>
+                            <td>
+                                <?= $data['jumlah_mati']; ?> Kg
                             </td>
 
                         </tr>
                     <?php
                     }
                     ?>
-                    <?php
-                    $sql2 = $koneksi->query("SELECT jumlah_mati, tgl, umur from tb_ayam_mati
-                    join tb_kandang on tb_kandang.id = tb_ayam_mati.fk_kandang  
-                    where tb_ayam_mati.tgl BETWEEN '$tgl_masuk' AND '$tgl_keluar'
-                    and tb_kandang.id = $kode");
-                    while ($data2 = $sql2->fetch_assoc()) {
-                    ?>
-                        <tr>
-                            <td>
-                                <?= $no++; ?>
-                            </td>
-                            <td colspan="3">
-                                <?= $data2['tgl']; ?>
-                            </td>
-                            <td >
-                                <?= $data2['umur']; ?>
-                            </td>
-                            <td>
-                                <?= $data2['jumlah_mati']; ?> Kg
-                            </td>
-                        </tr>
-                    <?php } ?>
+                    
 
 
 

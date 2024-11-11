@@ -69,7 +69,7 @@ if (isset($_POST['Simpan'])) {
 	$harga = $_POST['harga'];
 
 	$addstmt = $koneksi->prepare("UPDATE tb_pakan_masuk SET jumlah_kg = ?,harga = ?, jenis= ?, tgl = ? WHERE id = ?");
-	$addstmt->bind_Param("iiiss", $kode, $jumlah, $harga , $jenis, $tanggal);
+	$addstmt->bind_Param("iissi", $jumlah, $harga , $jenis, $tanggal, $kode);
 
 	if ($addstmt->execute()) {
 		echo "<script>
